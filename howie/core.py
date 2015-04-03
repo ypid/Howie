@@ -60,7 +60,11 @@ def init():
 	# set up the kernel
 	kernel.verbose(verbose)
 	kernel.setPredicate("secure", "yes") # secure the global session
-	kernel.bootstrap(learnFiles="std-startup.xml", commands="bootstrap")
+	if os.path.isfile("standard.brn"):
+		kernel.bootstrap(brainFile = "standard.brn")
+	else:
+		kernel.bootstrap(learnFiles="std-startup.xml", commands="bootstrap")
+		kernel.saveBrain('standard.brn')
 	kernel.setPredicate("secure", "no") # and unsecure it.
 
 	# Initialize bot predicates
